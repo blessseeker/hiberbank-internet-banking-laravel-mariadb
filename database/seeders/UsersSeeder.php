@@ -14,7 +14,6 @@ class UsersSeeder extends Seeder
     {
         $user = new \App\Models\User();
         $user->username = 'kamaludinkhoir';
-        $user->name = 'Kamaludin Khoir';
         $user->email = 'khoirkamaludin@gmail.com';
         $user->password = Hash::make('kamaludin');
         $user->customer_id = 1;
