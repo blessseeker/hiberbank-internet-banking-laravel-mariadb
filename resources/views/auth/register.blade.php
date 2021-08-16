@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title') Register @endsection
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -8,14 +10,12 @@
                 <div class="card-header">{{ __('Register') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
 
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+                            <label for="nomor_rekening" class="col-md-4 col-form-label text-md-right">Nomor Rekening</label>
 
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                            <div class="col-md-4">
+                                <input id="nomor-rekening" type="text" class="form-control @error('nomor_rekening') is-invalid @enderror" name="nomor_rekening" value="{{ old('nomor_rekening') }}" required autocomplete="nomor_rekening" autofocus>
 
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
@@ -23,55 +23,41 @@
                                     </span>
                                 @enderror
                             </div>
+                            <div class="col-md-4"><a id="btn-ceknorek" class="btn btn-primary" onclick="ceknorek()">
+                                CEK NOMOR REKENING
+                            </a></div>
                         </div>
+                        <div id="error-message"></div>
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
-                        </div>
+                        <form method="POST" action="/register">
+                            @csrf
+                            <div id="registration-form"></div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script> 
+    function ceknorek() {
+        // alert('cek');
+        var nomor_rekening = $('#nomor-rekening').val();
+
+        $.ajax({
+            type: 'POST',
+            url: "/ceknorek",
+            // dataType: 'json',
+            cache: false,
+            data: {
+                _token: "{{ csrf_token() }}",
+                nomor_rekening: nomor_rekening,
+            },
+        }).done(function(data) {
+            $("#error-message").html('').removeClass();
+            $("#registration-form").html(data.registration_form);
+        }).fail(function(jqXHR, textStatus) {
+            $("#error-message").html(jqXHR.responseText).addClass('alert').addClass(' alert-danger');
+        });
+    }
+</script>
 @endsection

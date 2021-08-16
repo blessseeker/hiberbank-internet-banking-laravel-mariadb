@@ -28,3 +28,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// Cek Nomor Rekening
+Route::post('/ceknorek', [App\Http\Controllers\Auth\CekNorekController::class, 'checkAccountByNomorRekening']);
