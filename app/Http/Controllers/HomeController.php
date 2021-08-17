@@ -21,11 +21,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $status = Auth::user()->status;
+        $user = Auth::user();
 
-        switch ($status) {
+        switch ($user->status) {
           case 'ACTIVE':
-            return view('home');
+            $customer = \App\Models\Customer::find($user->customer_id);
+
+            return view('home', compact('customer'));
 
             break;
 
@@ -35,7 +37,7 @@ class HomeController extends Controller
             break;
 
           default:
-          return view('home');
+          return view('pending_activation');
 
           break;
         }
