@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -33,8 +33,6 @@ class RegisterController extends Controller
 
     /**
      * Create a new controller instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -44,30 +42,46 @@ class RegisterController extends Controller
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string', 'max:255', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'verifikasi_tempat_lahir' => ['required'],
+            'verifikasi_tanggal_lahir' => ['required'],
+            'verifikasi_nama_ibu_kandung' => ['required'],
+            'verifikasi_foto_ktp' => ['required', 'image', 'max:2048'],
         ]);
     }
 
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
      * @return \App\Models\User
      */
     protected function create(array $data)
     {
+        $request = request();
+        $verifikasi_foto_ktp = $request->file('verifikasi_foto_ktp');
+        // $ktpSaveAsName = time().'_'.'ktp'.$verifikasi_foto_ktp->getClientOriginalExtension();
+        $upload_path = 'uploads/';
+        // $ktp_url = $upload_path.$ktpSaveAsName;
+        $verifikasi_foto_ktp->move($upload_path, $verifikasi_foto_ktp);
+
         return User::create([
-            'name' => $data['name'],
+            'username' => $data['username'],
+            'customer_id' => $data['customer_id'],
             'email' => $data['email'],
+            'phone' => $data['phone'],
             'password' => Hash::make($data['password']),
+            'verifikasi_tempat_lahir' => $data['verifikasi_tempat_lahir'],
+            'verifikasi_tanggal_lahir' => $data['verifikasi_tanggal_lahir'],
+            'verifikasi_nama_ibu_kandung' => $data['verifikasi_nama_ibu_kandung'],
+            'verifikasi_foto_ktp' => $verifikasi_foto_ktp,
+            'status' => 'INACTIVE',
         ]);
     }
 }

@@ -29,7 +29,7 @@
                         </div>
                         <div id="error-message"></div>
 
-                        <form method="POST" action="/register">
+                        <form enctype="multipart/form-data" method="POST" action="/register">
                             @csrf
                             <div id="registration-form"></div>
                     </form>

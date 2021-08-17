@@ -11,20 +11,42 @@ class CustomersSeeder extends Seeder
      */
     public function run()
     {
-        $customer = new \App\Models\Customer();
-        $customer->name = 'Kamaludin Khoir';
-        $customer->nomor_rekening = '0389840499';
-        $customer->no_ktp = '3278022012930016';
-        $customer->name = 'Kamaludin Khoir';
-        $customer->alamat = 'Kp. Gunung Tanjung RT 01/RW 09, Kel. Sukamanah, Kec. Cipedes, Kota Tasikmalaya';
-        $customer->tempat_lahir = 'Tasikmalaya';
-        $customer->tanggal_lahir = '1993-12-20';
-        $customer->nama_ibu_kandung = 'Saodah';
-        $customer->balance = '300000000';
-        $customer->status = 'ACTIVE';
+        $customers = [[
+            'nomor_rekening' => '0389840499',
+            'no_ktp' => '3278022012930016',
+            'name' => 'Customer Aktif Sudah jadi User',
+            'alamat' => 'Kp. Gunung Tanjung RT 01/RW 09, Kel. Sukamanah, Kec. Cipedes, Kota Tasikmalaya',
+            'tempat_lahir' => 'Tasikmalaya',
+            'tanggal_lahir' => '1993-12-20',
+            'nama_ibu_kandung' => 'Saodah',
+            'balance' => '300000000',
+            'status' => 'ACTIVE',
+        ], [
+            'nomor_rekening' => '0389840899',
+            'no_ktp' => '3278022012930017',
+            'name' => 'Customer Aktif Belum jadi User',
+            'alamat' => 'Panorama Ari Blok C-10, Desa Sawahdadap, Kec. Cimanggung, Kab. Sumedang',
+            'tempat_lahir' => 'Bandung',
+            'tanggal_lahir' => '1995-10-20',
+            'nama_ibu_kandung' => 'Aminah',
+            'balance' => '2500000',
+            'status' => 'ACTIVE',
+        ], [
+            'nomor_rekening' => '0389840896',
+            'no_ktp' => '3278022012930018',
+            'name' => 'Customer Inaktif',
+            'alamat' => 'Panorama Ari Blok C-26, Desa Sawahdadap, Kec. Cimanggung, Kab. Sumedang',
+            'tempat_lahir' => 'Jakarta',
+            'tanggal_lahir' => '1990-10-20',
+            'nama_ibu_kandung' => 'Siti Hajar',
+            'balance' => '35000',
+            'status' => 'INACTIVE',
+        ]];
+        $customerModel = new \App\Models\Customer();
+        $customerModel::insert($customers);
 
-        $customer->save();
+        // save();
 
-        $this->command->info('Customers 0389840899 berhasil ditambahkan');
+        // $this->command->info('Customers 0389840899 berhasil ditambahkan');
     }
 }

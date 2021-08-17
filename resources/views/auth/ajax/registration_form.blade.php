@@ -50,48 +50,62 @@
                 </div>
             </div>
             <div class="card-body">
-                <div class="tab-content">
-                    
+                <div class="tab-content">                    
                     <div class="form-group row">
-                        <label for="tempat_lahir" class="col-md-4 col-form-label text-md-right">{{ __('Tempat Lahir*') }}</label>
+                        <label for="verifikasi_tempat_lahir" class="col-md-4 col-form-label text-md-right">{{ __('Tempat Lahir*') }}</label>
                     
                         <div class="col-md-6">
-                            <input id="tempat_lahir" type="text" class="form-control @error('tempat_lahir') is-invalid @enderror" name="tempat_lahir" value="" required>
+                            <input id="verifikasi_tempat_lahir" type="text" class="form-control @error('tempat_lahir') is-invalid @enderror" name="verifikasi_tempat_lahir" value="" required>
                     
-                            @error('alamat')
+                            @error('verifikasi_tempat_lahir')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
                         </div>
                     </div>
+
                     <div class="form-group row">
-                    <label for="tanggal_lahir" class="col-md-4 col-form-label text-md-right">{{ __('Tanggal Lahir*') }}</label>
+                        <label for="verifikasi_tanggal_lahir" class="col-md-4 col-form-label text-md-right">{{ __('Tanggal Lahir*') }}</label>
+                    
+                        <div class="col-md-6">
+                            <input type="date" id="verifikasi_tanggal_lahir" type="text" class="form-control @error('tanggal_lahir') is-invalid @enderror" name="verifikasi_tanggal_lahir" required>
+                    
+                            @error('verifikasi_tanggal_lahir')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
                 
-                    <div class="col-md-6">
-                        <input type="date" id="tanggal_lahir" type="text" class="form-control @error('tanggal_lahir') is-invalid @enderror" name="tanggal_lahir" required>
+                    <div class="form-group row">
+                        <label for="verifikasi_nama_ibu_kandung" class="col-md-4 col-form-label text-md-right">{{ __('Nama Ibu Kandung*') }}</label>
+                    
+                        <div class="col-md-6">
+                            <input type="text" id="verifikasi_nama_ibu_kandung" class="form-control @error('nama_ibu_kandung') is-invalid @enderror" name="verifikasi_nama_ibu_kandung" required>
+                    
+                            @error('verifikasi_nama_ibu_kandung')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
                 
-                        @error('tanggal_lahir')
+                    <div class="form-group row">
+                        <div class="">
+                            <input type="file" class="form-control" id="verifikasi_foto_ktp" name="verifikasi_foto_ktp" required>
+                            <label class="custom-file-label" for="verifikasi_foto_ktp">Foto KTP</label>
+                        </div>
+                 
+                        @if ($errors->has('resume'))
                             <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
+                                <strong>{{ $errors->first('resume') }}</strong>
                             </span>
-                        @enderror
+                        @endif
                     </div>
                 </div>
-                
-                <div class="form-group row">
-                    <label for="nama_ibu_kandung" class="col-md-4 col-form-label text-md-right">{{ __('Nama Ibu Kandung*') }}</label>
-                
-                    <div class="col-md-6">
-                        <input type="text" id="nama_ibu_kandung" type="text" class="form-control @error('nama_ibu_kandung') is-invalid @enderror" name="nama_ibu_kandung" required>
-                
-                        @error('nama_ibu_kandung')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                </div></div>
             </div>
         </div>
     </div>
@@ -108,7 +122,7 @@
                 <div class="tab-content">
                     <input type="hidden" name="customer_id" value="{{ $customer->id }}" />
                     <div class="form-group row">
-                        <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Username*') }}</label>
+                        <label for="username" class="col-md-4 col-form-label text-md-right">{{ __('Username*') }}</label>
     
                         <div class="col-md-6">
                             <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username">
@@ -128,6 +142,20 @@
                             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
     
                             @error('email')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="phone" class="col-md-4 col-form-label text-md-right">{{ __('Phone*') }}</label>
+    
+                        <div class="col-md-6">
+                            <input id="phone" type="phone" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" required autocomplete="phone">
+    
+                            @error('phone')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>

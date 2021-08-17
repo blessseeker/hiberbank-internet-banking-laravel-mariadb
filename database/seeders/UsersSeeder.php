@@ -19,6 +19,10 @@ class UsersSeeder extends Seeder
         $user->customer_id = 1;
         $user->phone = '08112276780';
         $user->status = 'ACTIVE';
+        $user->verifikasi_tempat_lahir = 'Tasikmalaya';
+        $user->verifikasi_tanggal_lahir = '1993-12-20';
+        $user->verifikasi_nama_ibu_kandung = 'Saodah';
+        $user->verifikasi_foto_ktp = 'img.jpg';
 
         $user->save();
 
