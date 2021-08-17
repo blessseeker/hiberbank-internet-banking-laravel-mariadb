@@ -23,9 +23,14 @@
                                     </span>
                                 @enderror
                             </div>
-                            <div class="col-md-4"><a id="btn-ceknorek" class="btn btn-primary" onclick="ceknorek()">
+                            <div class="col-md-4">
+                                <a id="btn-ceknorek" class="btn btn-primary" onclick="ceknorek()">
                                 CEK NOMOR REKENING
-                            </a></div>
+                                </a>
+                                <a href="/" id="btn-login" class="btn btn-primary">
+                                Saya sudah punya akun
+                                </a>
+                            </div>
                         </div>
                         <div id="error-message"></div>
 
@@ -57,6 +62,7 @@
             $("#registration-form").html(data.registration_form);
         }).fail(function(jqXHR, textStatus) {
             $("#error-message").html(jqXHR.responseText).addClass('alert').addClass(' alert-danger');
+            $("#registration-form").html('');
         });
     }
 </script>
