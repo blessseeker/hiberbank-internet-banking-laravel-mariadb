@@ -50,7 +50,7 @@
 
         $.ajax({
             type: 'POST',
-            url: "/ceknorek",
+            url: "/register/ceknorek",
             // dataType: 'json',
             cache: false,
             data: {

@@ -32,7 +32,7 @@
 
                   <form method="POST" action="/transfer">
                       @csrf
-                      <div id="registration-form"></div>
+                      <div id="transfer-form"></div>
                     </form>
                 </form>
               </div>
@@ -46,7 +46,7 @@
     
             $.ajax({
                 type: 'POST',
-                url: "/ceknorek",
+                url: "/transfer/ceknorek",
                 // dataType: 'json',
                 cache: false,
                 data: {
@@ -55,10 +55,10 @@
                 },
             }).done(function(data) {
                 $("#error-message").html('').removeClass();
-                $("#registration-form").html(data.registration_form);
+                $("#transfer-form").html(data.transfer_form);
             }).fail(function(jqXHR, textStatus) {
                 $("#error-message").html(jqXHR.responseText).addClass('alert').addClass(' alert-danger');
-                $("#registration-form").html('');
+                $("#transfer-form").html('');
             });
         }
     </script>

@@ -13,7 +13,7 @@ class CustomerController extends Controller
                 return response()->json($customer, 200);
             }
 
-            return response('Status rekening Anda tidak aktif. hubungi Customer Service di cabang terdekat.', 400);
+            return response('Status rekening yang Anda masukkan tidak aktif.', 400);
         }
 
         return response('Nomor rekening yang Anda masukkan salah', 400);
