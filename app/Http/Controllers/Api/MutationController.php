@@ -4,16 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
-class TransactionController extends Controller
+class MutationController extends Controller
 {
-    protected $transactionModel;
-
-    public function __construct()
-    {
-        $this->transactionModel = new \App\Models\Transaction();
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -35,20 +29,18 @@ class TransactionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param mixed $transactions
-     * @param mixed $transaction
+     * @param \Illuminate\Http\Request $request
+     * @param mixed                    $mutation
      *
      * @return \Illuminate\Http\Response
      */
-    public function store($transaction)
+    public function store($mutation)
     {
-        return $this->transactionModel->insertGetId([
-            'customer_id' => $transaction['customer_id'],
-            'transaction_category_id' => $transaction['transaction_category_id'],
-            'nominal' => $transaction['nominal'],
-            'tanggal_transaksi' => $transaction['tanggal_transaksi'],
-            'keterangan' => $transaction['keterangan'],
-            'created_at' => $transaction['created_at'],
+        return DB::table('mutations')->insert([
+            'customer_id' => $mutation['customer_id'],
+            'transaction_id' => $mutation['transaction_id'],
+            'updated_balance' => $mutation['updated_balance'],
+            'created_at' => $mutation['created_at'],
         ]);
     }
 
