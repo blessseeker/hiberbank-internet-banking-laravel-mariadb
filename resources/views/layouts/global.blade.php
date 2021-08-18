@@ -25,24 +25,30 @@
 
         Tip 2: you can also add an image using data-image tag
     -->
-      <div class="logo"><a href="{{url('/')}}" class="simple-text logo-normal">
+      <div class="logo"><a href="{{url('/home')}}" class="simple-text logo-normal">
           Internet Banking
         </a></div>
       <div class="sidebar-wrapper">
         <ul class="nav">
-          <li class="nav-item active  ">
-            <a class="nav-link" href="./dashboard.html">
+          <li class="nav-item @if (Request::segment(1) === 'home')
+          active  
+          @endif">
+            <a class="nav-link" href="./home">
               <i class="material-icons">dashboard</i>
               <p>Dashboard</p>
             </a>
           </li>
-          <li class="nav-item ">
+          <li class="nav-item @if (Request::segment(1) === 'transfer')
+          active  
+          @endif">
             <a class="nav-link" href="/transfer">
               <i class="material-icons">send</i>
               <p>Transfer</p>
             </a>
           </li>
-          <li class="nav-item ">
+          <li class="nav-item @if (Request::segment(1) === 'mutasi')
+          active  
+          @endif">
             <a class="nav-link" href="/mutasi">
               <i class="material-icons">manage_search</i>
               <p>Mutasi</p>
@@ -56,7 +62,7 @@
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="{{route('home')}}">Dashboard</a>
+            <a class="navbar-brand" href="#">@yield('title')</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>

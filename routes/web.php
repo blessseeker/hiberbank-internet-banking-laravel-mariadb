@@ -31,3 +31,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 // Cek Nomor Rekening
 Route::post('/ceknorek', [App\Http\Controllers\Auth\CekNorekController::class, 'checkAccountByNomorRekening']);
+
+// Transactions
+Route::get('/transfer', [App\Http\Controllers\TransferController::class, 'index']);
