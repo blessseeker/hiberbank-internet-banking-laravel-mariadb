@@ -37,13 +37,13 @@
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="./user.html">
+            <a class="nav-link" href="/transfer">
               <i class="material-icons">send</i>
               <p>Transfer</p>
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="./tables.html">
+            <a class="nav-link" href="/mutasi">
               <i class="material-icons">manage_search</i>
               <p>Mutasi</p>
             </a>

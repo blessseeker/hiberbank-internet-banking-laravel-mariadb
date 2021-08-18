@@ -21,6 +21,8 @@ class CustomersSeeder extends Seeder
             'nama_ibu_kandung' => 'Saodah',
             'balance' => '300000000',
             'status' => 'ACTIVE',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
         ], [
             'nomor_rekening' => '0389840899',
             'no_ktp' => '3278022012930017',
@@ -31,6 +33,8 @@ class CustomersSeeder extends Seeder
             'nama_ibu_kandung' => 'Aminah',
             'balance' => '2500000',
             'status' => 'ACTIVE',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
         ], [
             'nomor_rekening' => '0389840896',
             'no_ktp' => '3278022012930018',
@@ -41,6 +45,8 @@ class CustomersSeeder extends Seeder
             'nama_ibu_kandung' => 'Siti Hajar',
             'balance' => '35000',
             'status' => 'INACTIVE',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
         ]];
         $customerModel = new \App\Models\Customer();
         $customerModel::insert($customers);

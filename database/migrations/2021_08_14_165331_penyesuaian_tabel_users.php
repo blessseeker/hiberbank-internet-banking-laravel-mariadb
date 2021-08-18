@@ -13,7 +13,7 @@ class PenyesuaianTabelUsers extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('username')->unique();
-            $table->string('customer_id')->unique();
+            $table->integer('customer_id')->unique();
             $table->string('phone');
             $table->enum('status', ['ACTIVE', 'INACTIVE']);
         });
