@@ -30,7 +30,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // Cek Nomor Rekening
-Route::post('/ceknorek', [App\Http\Controllers\Auth\CekNorekController::class, 'checkAccountByNomorRekening']);
+Route::post('/ceknorek', [App\Http\Controllers\Auth\RegisterController::class, 'cekNomorRekening']);
 
 // Transactions
 Route::get('/transfer', [App\Http\Controllers\TransferController::class, 'index']);

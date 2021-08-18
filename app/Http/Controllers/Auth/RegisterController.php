@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\CustomerController;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -37,6 +39,24 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+    }
+
+    public function cekNomorRekening(Request $request)
+    {
+        $nomor_rekening = $request->post('nomor_rekening');
+
+        $customerController = new CustomerController();
+
+        $response = $customerController->getCustomerByNomorRekening($nomor_rekening);
+
+        if (200 === $response->status()) {
+            $customer = $response->getData();
+            $registration_form = view('ajax/registration_form', compact('customer'))->render();
+
+            return response()->json(['registration_form' => $registration_form]);
+        }
+
+        return $response;
     }
 
     /**
