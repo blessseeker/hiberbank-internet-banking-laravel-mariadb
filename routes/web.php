@@ -35,3 +35,5 @@ Route::post('/register/ceknorek', [App\Http\Controllers\Auth\RegisterController:
 // Transfer
 Route::get('/transfer', [App\Http\Controllers\TransferController::class, 'index']);
 Route::post('/transfer/ceknorek', [App\Http\Controllers\TransferController::class, 'cekNomorRekening']);
+Route::post('/transfer', [App\Http\Controllers\TransferController::class, 'kirimTransfer']);
+Route::get('/transfer/success', [App\Http\Controllers\TransferController::class, 'success']);

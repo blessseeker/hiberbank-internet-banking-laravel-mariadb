@@ -3,6 +3,11 @@
 @section('title') Transfer @endsection
 
 @section('content')
+    @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -11,7 +16,6 @@
                 <p class="card-category">Kirim Uang</p>
               </div>
               <div class="card-body">
-                <form>
                   <div class="row">
                     <div class="col-md-10">
                       <div class="form-group">
@@ -34,7 +38,6 @@
                       @csrf
                       <div id="transfer-form"></div>
                     </form>
-                </form>
               </div>
             </div>
         </div>
