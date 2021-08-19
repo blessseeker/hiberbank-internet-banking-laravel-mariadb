@@ -27,7 +27,7 @@ class HomeController extends Controller
           case 'ACTIVE':
             $customer = \App\Models\Customer::find($user->customer_id);
 
-            return view('home', compact('customer'));
+            return view('pages/home', compact('customer'));
 
             break;
 

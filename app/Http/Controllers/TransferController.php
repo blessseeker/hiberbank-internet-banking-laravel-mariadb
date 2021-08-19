@@ -13,9 +13,12 @@ class TransferController extends Api\TransactionController
 {
     public function index()
     {
+        if (!Auth::check()) {
+            return response('Anda tidak memiliki hak akses ke halaman ini', 403);
+        }
         $error_message = '';
 
-        return view('transfer', compact('error_message'));
+        return view('pages/transfer', compact('error_message'));
     }
 
     public function cekNomorRekening(Request $request)
@@ -105,6 +108,8 @@ class TransferController extends Api\TransactionController
 
     public function success()
     {
-        dd(session('data'));
+        // $transaction = session('data');
+
+        return view('pages/transfer_success');
     }
 }
