@@ -37,3 +37,7 @@ Route::get('/transfer', [App\Http\Controllers\TransferController::class, 'index'
 Route::post('/transfer/ceknorek', [App\Http\Controllers\TransferController::class, 'cekNomorRekening']);
 Route::post('/transfer', [App\Http\Controllers\TransferController::class, 'kirimTransfer']);
 Route::get('/transfer/success', [App\Http\Controllers\TransferController::class, 'success']);
+
+// Mutasi
+Route::get('/mutasi', [App\Http\Controllers\Api\MutationController::class, 'index']);
+Route::get('/mutasi/list/{customer_id}/{dari}/{sampai}', [App\Http\Controllers\Api\MutationController::class, 'show']);

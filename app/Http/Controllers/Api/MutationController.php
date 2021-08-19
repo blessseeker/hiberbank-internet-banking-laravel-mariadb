@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class MutationController extends Controller
@@ -15,6 +16,7 @@ class MutationController extends Controller
      */
     public function index()
     {
+        return view('/pages/mutation');
     }
 
     /**
@@ -47,12 +49,27 @@ class MutationController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param int $id
+     * @param int   $id
+     * @param mixed $customer_id
+     * @param mixed $dari
+     * @param mixed $sampai
      *
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($customer_id, $dari, $sampai)
     {
+        if (!Auth::check()) {
+            return response('Anda tidak memiliki hak akses ke halaman ini', 403);
+        }
+        $mutations = \App\Models\Mutation::where('customer_id', $customer_id)->whereBetween('created_at', [$dari, $sampai])->get();
+
+        if (null !== $mutations) {
+            $mutation_list = view('ajax/mutation_list', compact('mutations'))->render();
+
+            return response()->json(['mutation_list' => $mutation_list]);
+        }
+
+        return response('Bad request', 400);
     }
 
     /**

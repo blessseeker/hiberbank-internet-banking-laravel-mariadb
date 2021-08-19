@@ -23,12 +23,14 @@ class TransferController extends Api\TransactionController
 
     public function cekNomorRekening(Request $request)
     {
+        // Mencari data nasabah berdasarkan nomor rekening
         $nomor_rekening = $request->post('nomor_rekening');
 
         $customerController = new CustomerController();
 
         $response = $customerController->getCustomerByNomorRekening($nomor_rekening);
 
+        // Jika response code nya 200, kembalikan form transfer
         if (200 === $response->status()) {
             $customer = $response->getData();
             $transfer_form = view('ajax/transfer_form', compact('customer'))->render();
@@ -36,24 +38,29 @@ class TransferController extends Api\TransactionController
             return response()->json(['transfer_form' => $transfer_form]);
         }
 
+        // Jika response code selain 200, kembalikan nilai dari response
         return $response;
     }
 
     public function kirimTransfer(Request $request)
     {
+        // Periksa apakah pengguna yang mengirimkan permintaan sudah terotentikasi?
         if (!Auth::check()) {
             return response('Anda tidak memiliki wewenang untuk melakukan ini', 403);
         }
 
+        // Validasi form transfer
         $validation = Validator::make($request->all(), [
             'nominal' => 'required',
             'password' => 'required',
         ])->validate();
 
+        // Cek bahwa password yang diinput sesuai dengan password user terotentikasi
         if (!Hash::check($request->post('password'), Auth::user()->password)) {
             return back()->with('error', 'Password yang Anda masukkan salah');
         }
 
+        // Menyimpan data transfer ke tabel transactions
         $pengirim_id = $request->post('pengirim_id');
         $penerima_id = $request->post('penerima_id');
         $nominal = $request->post('nominal');
@@ -70,7 +77,9 @@ class TransferController extends Api\TransactionController
 
         $transaction_id = $this->store($transaction);
 
+        // Jika transaksi berhasil disimpan
         if ($transaction_id) {
+            // Kurangi saldo pengirim dan tambah saldo penerima transfer
             $customerController = new CustomerController();
 
             $pengirim = $customerController->getCustomerById($pengirim_id)->getData();
@@ -81,6 +90,7 @@ class TransferController extends Api\TransactionController
             $dataPenerima['balance'] = $penerima->balance + $nominal;
             $customerController->update($dataPenerima, $penerima_id);
 
+            // Masukkan data mutasi kepada masing-masing customer
             $mutations = [
                 [
                     'customer_id' => $pengirim_id,
@@ -103,6 +113,7 @@ class TransferController extends Api\TransactionController
             }
         }
 
+        // Redirect ke halaman berhasil transfer
         return redirect('/transfer/success')->with('data', $transaction);
     }
 
