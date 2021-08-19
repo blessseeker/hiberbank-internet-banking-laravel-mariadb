@@ -26,11 +26,6 @@ class TransactionCategoriesSeeder extends Seeder
             'type' => 'CREDIT',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
-        ], [
-            'category_name' => 'Received Transfer',
-            'type' => 'CREDIT',
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s'),
         ]];
         $transactionCategoriesModel = new \App\Models\TransactionCategory();
         $transactionCategoriesModel::insert($transaction_categories);
